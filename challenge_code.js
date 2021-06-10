@@ -11,19 +11,20 @@
             elevator.goToFloor(0);
         });
         
-        // when floor button pressed, go to requested floor
+        // when floor button pressed, add floor to destination queue
         elevator.on("floor_button_pressed", function(floorNum) {
-            elevator.goToFloor(floorNum)
+            elevator.goToFloor(floorNum, true);
+            elevator.destinationQueue = elevator.destinationQueue.sort(); 
+            elevator.checkDestinationQueue(); 
         });
-        
+         
         // when floor requests an elevator, send elevator to that floor
-        for (let f = 0; f < floors.length; f++) {
-            let floor = floors[f];
+        for (var f = 0; f < floors.length; f++) {
+            var floor = floors[f];
             floor.on("up_button_pressed down_button_pressed", function() {
                 elevator.goToFloor(floor.floorNum());
             });
-        }
-        
+        };
     },
     update: function(dt, elevators, floors) {
         // We normally don't need to do anything here
