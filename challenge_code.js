@@ -2,6 +2,7 @@
     init: function(elevators, floors) {
         
         function activateElevator(elevator) {
+
             elevator.on("idle", function() {
                 //when idle, go to bottom floor
                 //seems like most people come from bottom floor in my experience
@@ -19,9 +20,10 @@
                     elevator.goToFloor(floorNum, true);
                 };
 
+
                 // if elevator is nearly full, don't stop at passing floor
                 if (elevator.loadFactor >= .8) return;
-            
+
                 // check to see if there are any passengers waiting on the floor selected
                 // if the direction is the same way we're heading, let them on
                 let floor = floors[floorNum];
